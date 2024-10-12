@@ -1,36 +1,44 @@
-import random
+from datetime import datetime, timedelta
 
 
-# Task 2
-def get_numbers_ticket(min, max, quantity) -> set :
+def get_upcoming_birthdays(users) -> list :
     
-    #Перевірка вхідних даних
-    if min < 1 or max > 1000 or quantity >= (max - min + 1) or quantity < 1:
-        return []
+    users_to_congrat = []
+    
+    today = datetime.today().date()
 
-    # Ініціалізація множини
-    resulted_set = set()
+    try :
+        for user in users:
+            
+            user_birthday = datetime.strptime(user["birthday"], "%Y.%m.%d").date() 
+            
+            # Empoyee's birthday this year
+            user_birthday = user_birthday.replace(year=today.year)
+            
+            # NewYear case
+            if (user_birthday < today) : 
+                user_birthday = user_birthday.replace(year=today.year + 1)
 
-    # Заповнюємо множину випадковими числами 
-    # доки число унікальних не буде дорівнювати бажаній кількості 
-    # але бачу, що був ще такий вариант: 
-    # numbers = random.sample(range(min_num, max_num + 1), quantity)
-    while len(resulted_set) < quantity:
-        resulted_set.add(random.randint(min, max))
+            # How many days before birthday
+            days_before = (user_birthday - today).days
+            
+            # If current week
+            if (0<= days_before <= 7) :
+                # If on weekends 
+                if (user_birthday.weekday() >=5) :
+                    user_birthday += timedelta(days=(7 -user_birthday.weekday()))
 
-    #Повертаємо відсортировану множину
-    return (sorted(resulted_set))
+                users_to_congrat.append({"name" : user["name"], "congratulation date" : user_birthday.strftime("%Y.%m.%d")})
+            
+    except:
+        print("Error")
 
-# Task 3
-def normalize_phone(phone_number) :
-    pass
-
-
-
-# Task 2
-print(f"Множина з 6 чисел у діапазоні від 1 до 49: {get_numbers_ticket(1, 49, 6)} ")
-print(f"Множина з 5 чисел у діапазоні від 1 до 36: {get_numbers_ticket(1, 36, 5)} ")
+    return (users_to_congrat)
 
 
-# Task 3
-normalize_phone(input("Введіть номер телефону:"))
+users = [
+    {"name": "John Doe", "birthday": "1985.10.13"},
+    {"name": "Jane Smith", "birthday": "1990.10.16"}
+]
+
+print(f"Список привітань на цьому тижні: {get_upcoming_birthdays(users)} ")
