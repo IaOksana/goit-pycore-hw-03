@@ -1,36 +1,34 @@
-import random
+import re
 
 
-# Task 2
-def get_numbers_ticket(min, max, quantity) -> set :
+def normalize_phone(phone_number) -> str :
     
-    #Перевірка вхідних даних
-    if min < 1 or max > 1000 or quantity >= (max - min + 1) or quantity < 1:
-        return []
+    #[^ ] — будь-який символ, крім тих, що в дужках
+    pattern = r"[^\d+]"
+    cleaned_phone_number = re.sub(pattern, '', phone_number.strip())
 
-    # Ініціалізація множини
-    resulted_set = set()
+    # Додаємо код країни, якщо його немає
+    if not cleaned_phone_number.startswith('+') :
 
-    # Заповнюємо множину випадковими числами 
-    # доки число унікальних не буде дорівнювати бажаній кількості 
-    # але бачу, що був ще такий вариант: 
-    # numbers = random.sample(range(min_num, max_num + 1), quantity)
-    while len(resulted_set) < quantity:
-        resulted_set.add(random.randint(min, max))
+        if not cleaned_phone_number.startswith('380') :
+            cleaned_phone_number = '38' + cleaned_phone_number
 
-    #Повертаємо відсортировану множину
-    return (sorted(resulted_set))
+        cleaned_phone_number = '+' + cleaned_phone_number
 
-# Task 3
-def normalize_phone(phone_number) :
-    pass
+    return (cleaned_phone_number)
 
 
+raw_numbers = [
+    "067\\t123 4567",
+    "(095) 234-5678\\n",
+    "+380 44 123 4567",
+    "380501234567",
+    "    +38(050)123-32-34",
+    "     0503451234",
+    "(050)8889900",
+    "38050-111-22-22",
+    "38050 111 22 11   ",
+]
 
-# Task 2
-print(f"Множина з 6 чисел у діапазоні від 1 до 49: {get_numbers_ticket(1, 49, 6)} ")
-print(f"Множина з 5 чисел у діапазоні від 1 до 36: {get_numbers_ticket(1, 36, 5)} ")
-
-
-# Task 3
-normalize_phone(input("Введіть номер телефону:"))
+sanitized_numbers = [normalize_phone(num) for num in raw_numbers]
+print("Нормалізовані номери телефонів для SMS-розсилки:", sanitized_numbers)

@@ -1,7 +1,6 @@
 import random
 
 
-# Task 2
 def get_numbers_ticket(min, max, quantity) -> set :
     
     #Перевірка вхідних даних
@@ -21,16 +20,7 @@ def get_numbers_ticket(min, max, quantity) -> set :
     #Повертаємо відсортировану множину
     return (sorted(resulted_set))
 
-# Task 3
-def normalize_phone(phone_number) :
-    pass
 
 
-
-# Task 2
 print(f"Множина з 6 чисел у діапазоні від 1 до 49: {get_numbers_ticket(1, 49, 6)} ")
 print(f"Множина з 5 чисел у діапазоні від 1 до 36: {get_numbers_ticket(1, 36, 5)} ")
-
-
-# Task 3
-normalize_phone(input("Введіть номер телефону:"))
