@@ -21,7 +21,7 @@ def get_days_from_today(another_date_str : str) :
 
 
 # Task 2
-def get_numbers_ticket(min, max, quantity) -> set:
+def get_numbers_ticket(min, max, quantity) -> set :
     
     #Перевірка вхідних даних
     if min < 1 or max > 1000 or quantity >= (max - min + 1) or quantity < 1:
@@ -40,8 +40,21 @@ def get_numbers_ticket(min, max, quantity) -> set:
     #Повертаємо відсортировану множину
     return (sorted(resulted_set))
 
+# Task 3
+def normalize_phone(phone_number) :
+    pass
+
+
+
+# Task 1
 # Запуск функції з введенням користувача
 get_days_from_today(input("Введіть дату у форматі 'РРРР-ММ-ДД': "))
 
+
+# Task 2
 print(f"Множина з 6 чисел у діапазоні від 1 до 49: {get_numbers_ticket(1, 49, 6)} ")
 print(f"Множина з 5 чисел у діапазоні від 1 до 36: {get_numbers_ticket(1, 36, 5)} ")
+
+
+# Task 3
+normalize_phone(input("Введіть номер телефону:"))
