@@ -1,6 +1,7 @@
 import random
 
 
+# Return the get numbers ticket operation.
 def get_numbers_ticket(min, max, quantity) -> set :
     
     #Перевірка вхідних даних
