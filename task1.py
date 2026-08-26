@@ -1,5 +1,6 @@
 from datetime import datetime
 
+# Return the get days from today operation.
 def get_days_from_today(another_date_str : str) :
     # Перетворення рядка у дату
     try :
