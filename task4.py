@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
 
+# Return the get upcoming birthdays operation.
 def get_upcoming_birthdays(users) -> list :
     
     users_to_congrat = []
