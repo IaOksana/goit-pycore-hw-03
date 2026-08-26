@@ -1,6 +1,7 @@
 import re
 
 
+# Normalize the normalize phone operation.
 def normalize_phone(phone_number) -> str :
     
     #[^ ] — будь-який символ, крім тих, що в дужках
